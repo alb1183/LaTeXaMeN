@@ -88,7 +88,8 @@
 			<?
 				
 				$columnas = '<th>ID</th>
-							<th>Titulo</th>';
+							<th>Titulo</th>
+							<th>Estandares</th>';
 
 				$columnas_db = $conectar->query("select * from $tabla_problemas order by id Desc");
 				$columnas_array = array();
@@ -132,6 +133,7 @@
 						echo '<tr>';
 						echo '	<td>'.$row_problemas['id'].'</td>';
 						echo '	<td>'.$row_problemas['titulo'].'</td>';
+						echo '	<td>'.(($row_problemas['estandares'] != -1) ? $row_problemas['estandares'] : 'Ninguno' ).'</td>';
 						
 						$data_json = array_change_key_case(json_decode($row_problemas['data'], TRUE));
 						foreach($columnas_array_f as $column)
@@ -161,6 +163,7 @@
 						}
 						echo '		<a id="problemas_add_'.$row_problemas['id'].'" href="javascript:void(0);" onclick="problemas_add('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_next_16.png" title="Añadir"></a>';
 						echo '		<a id="problemas_remove_'.$row_problemas['id'].'" style="display: none;" href="javascript:void(0);" onclick="problemas_remove('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_previous_16.png" title="Quitar"></a>';
+						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(2,'.$row_problemas['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
 						echo '	</td>';
 						
 						echo '</tr>';

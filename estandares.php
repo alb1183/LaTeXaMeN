@@ -2,8 +2,7 @@
 	require("head.php")
 ?>
 	<script>
-		window.document.title = "<?=$web['nombre'];?> - Examenes";
-		
+		window.document.title = "<?=$web['nombre'];?> - Preambulos";
 		$(document).ready(function() {
 			$('#preambulos').dataTable({
 				"language": {
@@ -29,6 +28,9 @@
 						"sortDescending": ": activate to sort column descending"
 					}
 				},
+				"fnCreatedRow": function( nRow, aData, iDataIndex ) {
+					$(nRow).attr('id', 'pream_' + aData[0]);
+				},
 				"columnDefs": [ {
 					  "targets": 'no-sort',
 					  "orderable": false,
@@ -36,16 +38,14 @@
 				} ]
 			});
 			
-			$(".pre_prev").fancybox({
-					padding : 0
-			});
 		});
 	</script>
 	<div class="box">
 		<div class="title select">
 			<center>
 				<h1 style="margin: 0;">
-					Examenes
+					<!--<img src="<?=$web['url'];?>img/accordion_32.png">-->
+					Estandares
 					<span class="arrow" style="margin-top: 12px; margin-right: 3px;"> </span>
 				</h1>
 			</center>
@@ -55,8 +55,9 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Titulo</th>
-						<th>Fecha</th>
+						<th>Estandar</th>
+						<th>Descripcion</th>
+						<th>Puntuacion</th>
 						<th class="no-sort">Opciones</th>
 					</tr>
 				</thead>
@@ -64,29 +65,26 @@
 				<tfoot>
 					<tr>
 						<th>ID</th>
-						<th>Titulo</th>
-						<th>Fecha</th>
+						<th>Estandar</th>
+						<th>Descripcion</th>
+						<th>Puntuacion</th>
 						<th class="no-sort">Opciones</th>
 					</tr>
 				</tfoot>
 			 
 				<tbody>
 					<?
-					$examenes_db = $conectar->query("SELECT * FROM $tabla_examenes order by id Desc");
+					$estandares_db = $conectar->query("SELECT * FROM $tabla_estandares order by id Desc");
 
-					while($row_examenes=$examenes_db->fetch_array()) {
+					while($row_estandares=$estandares_db->fetch_array()) {
 						echo '<tr>';
-						echo '	<td>'.$row_examenes['id'].'</td>';
-						echo '	<td>'.$row_examenes['titulo'].'</td>';
-						echo '	<td>'.UNIX2DATE($row_examenes['fecha']).'</td>';
+						echo '	<td>'.$row_estandares['id'].'</td>';
+						echo '	<td>'.$row_estandares['estandar'].'</td>';
+						echo '	<td>'.$row_estandares['descripcion'].'</td>';
+						echo '	<td>'.$row_estandares['puntuacion'].'</td>';
 						echo '	<td>';
-						echo '		<a href="'.$web['url'].'generar.php?id='.$row_examenes['id'].'"><img src="'.$web['url'].'img/page_edit_16.png" title="Editar"></a>';
-						if($row_examenes['generado'] == 1) {
-							echo ' <a href="'.$web['url'].'files/examenes/'.$row_examenes['id'].'.pdf"><img src="'.$web['url'].'img/document_image_16.png" title="Preview"></a>';
-						} else {
-							echo '	<a href="javascript:void(0);" onclick="alert(\'No se ha generado preview, edita el problema para crearla.\')"><img src="'.$web['url'].'img/document_image_16.png" title="Preview"></a> ';
-						}
-						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(1,'.$row_examenes['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
+						echo '		<a href="'.$web['url'].'estandar.php?id='.$row_estandares['id'].'"><img src="'.$web['url'].'img/page_edit_16.png" title="Editar"></a>';
+						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(4,'.$row_estandares['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
 						echo '	</td>';
 						echo '</tr>';
 					};

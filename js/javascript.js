@@ -85,3 +85,21 @@ function preambulo_cambiar(id) {
 	}
 }
 
+
+function borrar_selectivo(modo, id) {
+	if (confirm("¿Seguro que quieres borrarlo?") == true) {
+		$.ajax({
+			data:  { 'tipo' : 8, 'id' : id , 'modo' : modo},
+			url:   urlweb + 'php/funciones-ajax.php',
+			type:  'post',
+			success:  function (response) {
+					if(response == 1){
+						alert("Borrado correctamente");
+						location.reload();
+					}else{
+						alert("Error: " + response);
+					}
+			}
+		});
+	};	
+}

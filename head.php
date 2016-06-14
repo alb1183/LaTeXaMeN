@@ -58,17 +58,32 @@
 			<div class="header-wrap-container">
                 <div class="logo-container">
                     <a href="<?=$web['url'];?>" class="index-logo no-com ir">
-                        
+					
                     </a>
                 </div>
 			</div>
 		
 			<nav id="nav-main" class="nav-main">
 				<ul>
-					<li style="width: 40px;">
-						<a class="nav-main-home" href="<?=$web['url'];?>" title="Inicio">
+					<li style="width: 105px;">
+						<a class="nav-main-home" href="<?=$web['url'];?>" title="Inicio" style="padding-left: 25px;">
 							<span class="ir"> </span>
-							
+							<?php
+								switch ($_COOKIE["curso"]) {
+									case 1:
+										echo 'Segundo';
+										break;
+									case 2:
+										echo 'Tercero';
+										break;
+									case 3:
+										echo 'Cuarto';
+										break;
+									default:
+										echo 'Segundo';
+										break;
+								}
+							?>
 						</a>
 					</li>
 					<li style="width: 105px;">
@@ -89,6 +104,11 @@
 					<li style="width: 130px;">
 						<a href="<?=$web['url'];?>preambulos.php" title="Preambulos">
 							<img src="<?=$web['url'];?>img/document_comments_16.png"> Preambulos
+						</a>
+					</li>
+					<li style="width: 130px;">
+						<a href="<?=$web['url'];?>estandares.php" title="Estandares">
+							<img src="<?=$web['url'];?>img/document_todo_16.png"> Estandares
 						</a>
 					</li>
 					<li style="width: 165px;">

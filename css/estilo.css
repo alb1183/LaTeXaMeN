@@ -467,6 +467,7 @@ input[type="search"] {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
+	width: 200px;
 }
 .ir {
   background-color: transparent;
@@ -585,6 +586,7 @@ tr.row_selected td{
 	margin: 5px;
 	padding: 5px;
 	height: 22px;
+	cursor: move;
 }
 li.highlight {
 	background: #FEE25F;

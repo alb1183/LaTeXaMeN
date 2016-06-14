@@ -85,6 +85,7 @@
 						echo '	<td>';
 						echo '		<a href="'.$web['url'].'preambulo.php?id='.$row_preambulos['id'].'"><img src="'.$web['url'].'img/page_edit_16.png" title="Editar"></a>';
 						echo '		<a href="javascript:void(0);" onclick="preambulo_cambiar('.$row_preambulos['id'].')";><img src="'.$web['url'].'img/book_next_16.png" title="Seleccionar"></a>';
+						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(3,'.$row_preambulos['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
 						echo '	</td>';
 						echo '</tr>';
 					};

@@ -59,10 +59,11 @@
 			var json_send = JSON.stringify(parametros);
 			
 			var titulo = $('#titulo').val();
+			var estandares = $('#estandares').val();
 			var latex = editor_latex.getValue();
 			
 			$.ajax({
-				data:  { 'tipo' : 3, 'id' : <?=$id;?> , 'titulo' : titulo, 'latex' : latex , 'data' : json_send},
+				data:  { 'tipo' : 3, 'id' : <?=$id;?> , 'titulo' : titulo, 'estandares' : estandares, 'latex' : latex , 'data' : json_send},
 				url:   '<?=$web['url'];?>php/funciones-ajax.php',
 				type:  'post',
 				beforeSend: function () {
@@ -94,7 +95,11 @@
 				<table cellspacing="2" cellpadding="2" border="0" style="margin-left: 40px;">
 					<tr>
 						<td style="text-align: right; width: 250px;"><label class="add-on left">Titulo: </label></td>
-						<td><input style="width: 350px;" type="text" name="titulo" id="titulo" class="right" value="<?=$row_problema['titulo'];?>"> <img onclick="add_form();" style="margin-bottom: -4px; cursor: pointer;" title="Añadir formulario" src="<?=$web['url'];?>img/textfield_add_16.png"></td>
+						<td><input style="width: 350px;" type="text" name="titulo" id="titulo" class="right" value="<?=$row_problema['titulo'];?>"></td>
+					</tr>
+					<tr>
+						<td style="text-align: right; width: 250px;"><label class="add-on left">Estandares: </label></td>
+						<td><input style="width: 350px;" type="text" name="estandares" id="estandares" class="right" value="<?=$row_problema['estandares'];?>"> <img onclick="add_form();" style="margin-bottom: -4px; cursor: pointer;" title="Añadir formulario" src="<?=$web['url'];?>img/textfield_add_16.png"></td>
 					</tr>
 					<?
 						if($id != 0) {

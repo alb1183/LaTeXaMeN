@@ -80,11 +80,14 @@
 	function generar_pdf_img($id, $directorio, $img) {
 		// Genero la img - TODO: el comando convert es del ImageMagick(http://www.imagemagick.org/script/index.php)
 		// TODO: EL ImageMagick requiere el GhostScript(http://ghostscript.com/download/)
-		$orden = 'cd "'.$directorio.'" && pdflatex --interaction batchmode --enable-installer -quiet '.$id .'.tex';
-		if($img === true) {
-			$orden .= ' && convert -verbose -density 150 -trim '.$id .'.pdf -quality 100 -gravity center -background white -extent 1275x1650 '.$id .'.jpg';
-		}
+		//$orden = 'pdflatex -output-directory="'.$directorio.'" --interaction batchmode --enable-installer -quiet "'.$directorio.$id .'.tex"';
+		$orden = 'cd "'.$directorio.'" && pdflatex --interaction batchmode --enable-installer -quiet "'.$id .'.tex"';
+		
 		$salida = shell_exec($orden);
+		if($img == true) {
+			$orden_img = 'cd "'.$directorio.'" && convert -verbose -density 150 -trim "'.$id .'.pdf" -quality 100 -gravity center -background white -extent 1275x1650 "'.$id .'.jpg"';
+			shell_exec($orden_img);
+		}
 		
 		return $salida;
 	}

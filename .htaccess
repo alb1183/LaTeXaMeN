@@ -18,4 +18,4 @@ php_value max_input_time 900
 php_value memory_limit 512M
 php_value short_open_tag 1
 AddDefaultCharset UTF-8
-ErrorDocument 404 404.php
+ErrorDocument 404 /LaTeXaMeN/404.php

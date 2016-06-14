@@ -1,15 +1,36 @@
 <?php
-require('php/config.php');
+define('DBSERVER','127.0.0.1');
+define('DBNAME','latexamen');
+define('DBUSER','root');
+define('DBPASS','alberto');
 $conectar = new mysqli(DBSERVER, DBUSER, DBPASS, DBNAME, "3306");
 if ($conectar->connect_error) {
     die('Error en la conexión principal al servidor :' . $conectar->connect_error);
 }
+
+$curso = (int) $_COOKIE["curso"];
 $prefijotabla = "tex_";
 
+switch ($curso) {
+	case 1:
+		$prefijotabla_curso = "1_";
+		break;
+	case 2:
+		$prefijotabla_curso = "2_";
+		break;
+	case 3:
+		$prefijotabla_curso = "3_";
+		break;
+	default:
+		$prefijotabla_curso = "1_";
+		break;
+}
+
 $tabla_config = $prefijotabla."config";
-$tabla_problemas = $prefijotabla."problemas";
-$tabla_preambulos = $prefijotabla."pre";
-$tabla_examenes = $prefijotabla."exams";
+$tabla_problemas = $prefijotabla.$prefijotabla_curso."problemas";
+$tabla_preambulos = $prefijotabla.$prefijotabla_curso."pre";
+$tabla_estandares = $prefijotabla.$prefijotabla_curso."standards";
+$tabla_examenes = $prefijotabla.$prefijotabla_curso."exams";
 
 $conectar->set_charset("utf8");
 

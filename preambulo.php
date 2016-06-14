@@ -59,7 +59,7 @@
 				<table cellspacing="2" cellpadding="2" border="0" style="margin-left: 40px;">
 					<tr>
 						<td style="text-align: right; width: 250px;"><label class="add-on left">Titulo: </label></td>
-						<td><input style="width: 350px;" type="text" name="titulo" id="titulo" class="right" value="<?=$row_preambulo['titulo'];?>">
+						<td><input style="width: 350px;" type="text" name="titulo" id="titulo" class="right" value="<?=$row_preambulo['titulo'];?>"></td>
 					</tr>
 					<tr id="form_ult">
 						<td style="text-align: right;"><i style="color: #999999; font-size: 11px; font-family: times new roman; margin-right: 5px;" id="infoajax"> </i></td>
