@@ -1,0 +1,156 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,top=2.5cm,right=2.5cm,bottom=1.5cm]{geometry}
+\usepackage[version=3]{mhchem}
+\usepackage{chemmacros}
+\usepackage{chemformula}
+\usepackage{chemfig}
+\usepackage[load-headings=true]{exsheets}
+\usepackage{enumitem}
+\usepackage{marginnote}
+\SetupExSheets{headings=margin-nr}
+\SetupExSheets[points]{name=\itshape\scriptsize P,number-format=\itshape\scriptsize}
+\usepackage{fancybox}
+%\newcommand\parens[1]{\ovalbox{#1}}
+%\SetupExSheets{points/format=\parens}
+\usepackage{marginnote}
+% define a new command \subpoints that writes the points in a
+% \marginnote; we defined it with a starred variant that only
+% will write but not add the points
+\makeatletter
+\newcommand*\subpoints{\@ifstar\subpoints@star\subpoints@nostar}
+\newcommand*\subpoints@star[1]{\marginnote{\points{#1}}}
+\newcommand*\subpoints@nostar[1]{\marginnote{\addpoints{#1}}}
+
+\renewcommand{\arraystretch}{0.8}
+
+\makeatother
+%\DebugExSheets{true}    %Asi muestro los ID de las preguntas de este examen
+%Paginas sin numeracion (plain para numeracion)
+\pagestyle{empty}
+%\parindent=0mm
+%Encabezados tipo de numeracion etc.
+\SetupExSheets{headings=margin-nr}
+    \SetupExSheets[points]{name=\itshape\scriptsize Pt.,number-format=\itshape\scriptsize}
+\SetupExSheets[points]{name-plural=\itshape\scriptsize Pts.,number-format=\itshape\scriptsize}
+
+\newcommand \cp[1]{%
+ \marginnote{\begin{tabular}{|c|}
+  \hline\\\\
+  \hline
+ {\textbf{\points{#1}}}\\
+ \hline
+\end{tabular}}}
+
+
+
+
+\ExplSyntaxOn
+\cs_set_nopar:Npn \exsheets_points_name:n #1
+ {
+   \bool_if:NT \l__exsheets_points_name_bool
+     {
+       \,
+       \hbox:n
+         {
+           \bool_if:NTF \l__exsheets_parse_points_bool
+             {
+               \tl_if_eq:nnTF {#1} { ?? }
+                 { \tl_use:N \l__exsheets_points_name_plural_tl }
+                 {
+                   \fp_compare:nTF { #1 =  1 }
+                     { \tl_use:N \l__exsheets_points_name_tl }
+                     { \tl_use:N \l__exsheets_points_name_plural_tl }
+                 }
+             }
+             { \tl_use:N \l__exsheets_points_name_plural_tl }
+         }
+     }
+ }
+\ExplSyntaxOff
+
+\begin{document}
+
+%una linea
+\vspace*{-3cm}\noindent\rule{1,12\textwidth}{0,4pt}
+%Tipo examen y curso, Evaluacion
+\noindent\makebox[1,12\linewidth]{{\bf{\footnotesize {Control-1/2º Bachillerato S}}}\hfill {\bf{\footnotesize{Primera Evaluación}}}} 
+\vspace{-0,35cm}
+\noindent\makebox[1,12\linewidth]{{\bf{\tiny{Química Básica.}}}\hfill\ {\bf{\tiny{4 de Noviembre de 2012}}}}\vspace{0,5cm}
+\noindent \makebox[1,12\linewidth]{Nombre\dotfill}\vspace{-0,25cm}
+\noindent\rule{1,12\textwidth}{0,4pt}
+%@ Titre: sulfuricovaloradoBeOH2-1
+%@ Domaine: Química Básica
+%@ Chapitre: Composición, cantidades en química.
+%@ Dificultad: Media-alta
+%@ Observaciones: Disoluciones, concentracion, fracción molar, diluciones, neutralización. EX-1pto-2013-14
+%@ Identificador: 00062
+
+\begin{question}{0.5}
+Se disuelven 50 g de ácido sulfúrico (\ce{H2SO4}) en 200 g de agua resultando una disolución de densidad 1.12 $\frac{g}{cm^3}$.
+Calcula la molaridad de la disolución que resulta al mezclar 50 {m\it l} de la disolución anterior con 120 ${cm^3}$ de una disolución 0.5 M de \ce{H2SO4}. Considera los volúmenes aditivos.
+\end{question}
+\begin{solution}
+\end{solution}%\ID{q1002151041}
+\begin{problem}[10]
+Cómo separarías en el laboratorio una mezcla formada por arena, sal y limaduras de hierro.
+
+\dotfill\par\dotfill\par\dotfill\par\dotfill\par\dotfill\par
+\begin{solution}
+\phantom{}
+\end{solution}
+\end{problem}
+%\endID
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\vspace*{-0.5cm}
+\begin{problem*}[2ea]
+De los siguientes sistemas materiales indica cuales son heterogéneos u homogéneos, entre los últimos cuáles son disoluciones o sustancias puras, y a su vez de éstos distingue entre elementos y compuestos.
+\begin{multicols}{2} 
+	 \begin{parts}
+		\item Agua salada.\dotfill \par
+		 \dotfill
+		\item Vinagre.\dotfill \par
+		 \dotfill
+		\item Nitrógeno (\ce{N2}).\dotfill \par
+		 \dotfill
+		\item Aire.\dotfill \par
+		 \dotfill
+		\item Acero.\dotfill \par
+		 \dotfill
+		\item Cobre.\dotfill \par
+		 \dotfill
+		\item Ácido sulfúrico (\ce{HSO4}).\dotfill \par
+		 \dotfill
+		\item Arena con grava.\dotfill \par
+		 \dotfill
+\end{parts}
+	\end{multicols} 
+\end{problem*}
+\vspace*{-0.75cm}
+%%%%%%
+%\endID
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\vfill
+\hrule
+\vspace*{2mm}
+{\sc \footnotesize Tabla de puntuaciones\\}{\tiny \begin{center}
+\SetupExSheets{
+ points/number-format= ,
+ counter-format=qu
+}
+\renewcommand{\arraystretch}{2.2}
+\begin{tabular}{|l|*{\numberofquestions}{p{0.8cm}|}c|}\hline
+ Pregunta     &
+\ForEachQuestion{\centering{\QuestionNumber{#1}}\iflastquestion{}{&}} & Total \\ \hline
+ Puntuaci\'on & \
+\ForEachQuestion{\centering{\GetQuestionProperty{points}{#1}}\iflastquestion{}{&}} &
+\pointssum* \\ \hline
+Obtenido  & \ForEachQuestion{\iflastquestion{}{&}} & \\ 
+\hline
+\end{tabular}
+
+\end{center}
+\end{document}

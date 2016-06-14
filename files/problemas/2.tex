@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,top=2.5cm,right=2.5cm,bottom=1.5cm]{geometry}
+\usepackage[version=3]{mhchem}
+\usepackage{chemmacros}
+\usepackage{chemformula}
+\usepackage{chemfig}
+\usepackage[load-headings=true]{exsheets}
+\usepackage{enumitem}
+\usepackage{marginnote}
+\SetupExSheets{headings=margin-nr}
+\SetupExSheets[points]{name=\itshape\scriptsize P,number-format=\itshape\scriptsize}
+\usepackage{fancybox}
+%\newcommand\parens[1]{\ovalbox{#1}}
+%\SetupExSheets{points/format=\parens}
+\usepackage{marginnote}
+% define a new command \subpoints that writes the points in a
+% \marginnote; we defined it with a starred variant that only
+% will write but not add the points
+\makeatletter
+\newcommand*\subpoints{\@ifstar\subpoints@star\subpoints@nostar}
+\newcommand*\subpoints@star[1]{\marginnote{\points{#1}}}
+\newcommand*\subpoints@nostar[1]{\marginnote{\addpoints{#1}}}
+
+\renewcommand{\arraystretch}{0.8}
+
+\makeatother
+%\DebugExSheets{true}    %Asi muestro los ID de las preguntas de este examen
+%Paginas sin numeracion (plain para numeracion)
+\pagestyle{empty}
+%\parindent=0mm
+%Encabezados tipo de numeracion etc.
+\SetupExSheets{headings=margin-nr}
+    \SetupExSheets[points]{name=\itshape\scriptsize Pt.,number-format=\itshape\scriptsize}
+\SetupExSheets[points]{name-plural=\itshape\scriptsize Pts.,number-format=\itshape\scriptsize}
+
+\newcommand \cp[1]{%
+ \marginnote{\begin{tabular}{|c|}
+  \hline\\\\
+  \hline
+ {\textbf{\points{#1}}}\\
+ \hline
+\end{tabular}}}
+
+
+
+
+\ExplSyntaxOn
+\cs_set_nopar:Npn \exsheets_points_name:n #1
+ {
+   \bool_if:NT \l__exsheets_points_name_bool
+     {
+       \,
+       \hbox:n
+         {
+           \bool_if:NTF \l__exsheets_parse_points_bool
+             {
+               \tl_if_eq:nnTF {#1} { ?? }
+                 { \tl_use:N \l__exsheets_points_name_plural_tl }
+                 {
+                   \fp_compare:nTF { #1 =  1 }
+                     { \tl_use:N \l__exsheets_points_name_tl }
+                     { \tl_use:N \l__exsheets_points_name_plural_tl }
+                 }
+             }
+             { \tl_use:N \l__exsheets_points_name_plural_tl }
+         }
+     }
+ }
+\ExplSyntaxOff
+
+\begin{document}
+
+%una linea
+\vspace*{-3cm}\noindent\rule{1,12\textwidth}{0,4pt}
+%Tipo examen y curso, Evaluacion
+\noindent\makebox[1,12\linewidth]{{\bf{\footnotesize {Control-1/2º Bachillerato S}}}\hfill {\bf{\footnotesize{Primera Evaluación}}}} 
+\vspace{-0,35cm}
+\noindent\makebox[1,12\linewidth]{{\bf{\tiny{Química Básica.}}}\hfill\ {\bf{\tiny{4 de Noviembre de 2012}}}}\vspace{0,5cm}
+\noindent \makebox[1,12\linewidth]{Nombre\dotfill}\vspace{-0,25cm}
+\noindent\rule{1,12\textwidth}{0,4pt}
+%@ Titre: combustionpropano-1
+%@ Domaine: Química Básica
+%@ Chapitre: Composición, cantidades en química.
+%@ Dificultad: Media-alta
+%@ Observaciones: Examen, Estequiometría, rendimiento, combustión
+%@ Identificador: 00081
+
+\begin{question}{0.5}
+Se hacen reaccionar 20.0 g de propano (\ce{C3H8}) con 50.0 g de \ce{O2}.
+Determina el volumen de oxígeno, medido en condiciones normales, que se necesitará para obtener 28.8 g de agua sabiendo que el rendimiento de la reacción es del 80 \%.
+\end{question}
+\begin{solution}
+\end{solution}
+\vfill
+\hrule
+\vspace*{2mm}
+{\sc \footnotesize Tabla de puntuaciones\\}{\tiny \begin{center}
+\SetupExSheets{
+ points/number-format= ,
+ counter-format=qu
+}
+\renewcommand{\arraystretch}{2.2}
+\begin{tabular}{|l|*{\numberofquestions}{p{0.8cm}|}c|}\hline
+ Pregunta     &
+\ForEachQuestion{\centering{\QuestionNumber{#1}}\iflastquestion{}{&}} & Total \\ \hline
+ Puntuaci\'on & \
+\ForEachQuestion{\centering{\GetQuestionProperty{points}{#1}}\iflastquestion{}{&}} &
+\pointssum* \\ \hline
+Obtenido  & \ForEachQuestion{\iflastquestion{}{&}} & \\ 
+\hline
+\end{tabular}
+
+\end{center}
+\end{document}

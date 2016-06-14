@@ -1,0 +1,21 @@
+RewriteEngine on
+
+Rewriterule ^perfil/([A-z0-9]+)$ perfil.php?id=$1
+Rewriterule ^editarperfil/$ editarperfil.php
+Rewriterule ^foto/([0-9]+)$ fotos.php?id=$1
+Rewriterule ^mensajes/([A-z]+)$ mensajes-recibidos.php
+Rewriterule ^mensajes/recibidos/$ mensajes-recibidos.php
+Rewriterule ^mensajes/ver/([0-9]+)$ mensajes-ver.php?id=$1
+Rewriterule ^notificaciones/(.*)$ notificaciones.php?tip=$1
+Rewriterule ^gente/(.*)$ gente.php$1
+Rewriterule ^terminos-y-condiciones/ terminos-y-condiciones.php
+Rewriterule ^registro/ registro.php
+Rewriterule ^password/ password.php
+
+php_value upload_max_filesize 512M
+php_value max_execution_time 900
+php_value max_input_time 900
+php_value memory_limit 512M
+php_value short_open_tag 1
+AddDefaultCharset UTF-8
+ErrorDocument 404 404.php
