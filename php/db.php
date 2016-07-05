@@ -1,8 +1,5 @@
 <?php
-define('DBSERVER','127.0.0.1');
-define('DBNAME','latexamen');
-define('DBUSER','root');
-define('DBPASS','alberto');
+require_once(__DIR__ . '\config.php');
 $conectar = new mysqli(DBSERVER, DBUSER, DBPASS, DBNAME, "3306");
 if ($conectar->connect_error) {
     die('Error en la conexión principal al servidor :' . $conectar->connect_error);

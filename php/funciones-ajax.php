@@ -123,6 +123,7 @@ require("funciones.php");
 			$preambulo = (int) $_POST['preambulo'];
 			$problemas = $conectar->real_escape_string($_POST['problemas']);
 			$directorio = $_SERVER['DOCUMENT_ROOT'] . '/latexamen/files/examenes/';
+			$criteria = (int) $_POST['criteria'];
 			$fecha = time();
 			
 			if($id != 0) {
@@ -140,15 +141,78 @@ require("funciones.php");
 			$row_preambulo=$preambulo_db->fetch_array();
 			
 			// Creando el .tex
-			$content = $row_preambulo['head'];
+			// Cabecera
+			$content = $row_preambulo['head'].PHP_EOL;
 			
 			// Añado los problemas
 			$problemas_db = $conectar->query("SELECT * FROM $tabla_problemas WHERE id IN ($problemas) ORDER BY FIELD(id, $problemas)");
+			$problemas_estandares = array();
+			$problemas_num = 0;
 			while($row_problemas=$problemas_db->fetch_array()) {
-				$content .= $row_problemas['latex'];	
+				$content .= $row_problemas['latex'].PHP_EOL;
+				
+				$problemas_estandares[] = $row_problemas['estandares'];
+				$problemas_num++;
 			}
 			
+			// Generar tabla de estandares
+			if($criteria == 1) {
+				$tabla = '\hrule'.PHP_EOL;
+				$tabla .= '\begin{table}[h]'.PHP_EOL;
+				$tabla .= '\begin{center}'.PHP_EOL;
+				$tabla .= '\begin{tabular}{|p{3.2cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|}'.PHP_EOL;
+				$tabla .= '\hline'.PHP_EOL;
+				$tabla .= '{\scriptsize Estándar de aprendizaje}'.PHP_EOL;
+				
+				for($i = 0; $i < $problemas_num; $i++) {
+					$estandars = str_replace(' ', ' \\\\ ', $problemas_estandares[$i]);
+					str_replace(' ', ' \\\\ ', $estandars);
+					$tabla .= '& \centering {\scriptsize '.$estandars.'\\\\ }'.PHP_EOL;
+				}
+				
+				$tabla .= '\tabularnewline \hline {\scriptsize Preguntas o apartados \par con que se relaciona}'.PHP_EOL;
+				
+				for($i = 0; $i < $problemas_num; $i++) {
+					$tabla .= ' &  \centering {\scriptsize '.($i+1).' }'.PHP_EOL;
+				}
+				
+				$tabla .= ' \tabularnewline \hline'.PHP_EOL;
+				$tabla .= ' {\scriptsize Puntuación máx. estándar}'.PHP_EOL;
+				
+				for($i = 0; $i < $problemas_num; $i++) {
+					$estandars = explode(' ', $problemas_estandares[$i]);
+					$longitud = count($estandars);
+					
+					$tabla .= '  &  \centering {\scriptsize ';
+					
+					for($j=0; $j<$longitud; $j++) {
+						$estd = trim($estandars[$j]);
+						$estands_db = $conectar->query("select * from $tabla_estandares WHERE estandar='$estd'");
+						$row_estands=$estands_db->fetch_array();
+						$tabla .= $row_estands['puntuacion'].'\\\\';
+					}
+					$tabla .= ' } '.PHP_EOL;
+				}
+				
+ 				$tabla .= '\tabularnewline \hline'.PHP_EOL;
+				$tabla .= ' {\scriptsize Puntuación obtenida } '.PHP_EOL;
+				$tabla .= ' &  \vspace*{1cm} \centering    \vspace*{1.5cm} '.PHP_EOL;
+				$tabla .= ' &  \centering  '.PHP_EOL;
+				$tabla .= ' & \centering  '.PHP_EOL;
+				$tabla .= ' &  \tabularnewline '.PHP_EOL;
+				$tabla .= '\hline '.PHP_EOL;
+				$tabla .= '\end{tabular}'.PHP_EOL;
+				$tabla .= '\end{center}'.PHP_EOL;
+				$tabla .= '\end{table}'.PHP_EOL;
+				$tabla .= '\hrule'.PHP_EOL;
+				
+				$content .= $tabla.PHP_EOL;
+			}			
+			
+			
+			// Footer
 			$content .= $row_preambulo['foot'];
+			// Creo el .tex
 			crear_tex($directorio.$id .'.tex', $content);
 			
 			// Genero el .pdf

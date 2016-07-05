@@ -29,6 +29,7 @@
 						"sortDescending": ": activate to sort column descending"
 					}
 				},
+				"order": [[ 0, "desc" ]],
 				"columnDefs": [ {
 					  "targets": 'no-sort',
 					  "orderable": false,

@@ -49,7 +49,7 @@
 		<div class="title select">
 			<center>
 				<h1 style="margin: 0;">
-					<?=$state;?> Preambulo
+					<?=$state;?> Estandar
 					<span class="arrow" style="margin-top: 12px; margin-right: 3px;"> </span>
 				</h1>
 			</center>

@@ -1,0 +1,1 @@
+- Pendiente de hacer la opcion para duplicar un problema(o hacerlo a partir de otro).

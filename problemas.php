@@ -31,6 +31,7 @@
 				"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 					$(nRow).attr('id', 'problem_' + aData[0]);
 				},
+				"order": [[ 0, "desc" ]],
 				"columnDefs": [ {
 					  "targets": 'no-sort',
 					  "orderable": false,
@@ -78,7 +79,7 @@
 		<div class="title select">
 			<center>
 				<h1 style="margin: 0;">
-					Problemas
+					Problemas <a href="<?=$web['url']?>problema.php?id=0"><img src="<?=$web['url']?>img/add_16.png" style="margin-bottom: 0;" title="Añadir"></a>
 					<span class="arrow" style="margin-top: 12px; margin-right: 3px;"> </span>
 				</h1>
 			</center>
@@ -111,7 +112,7 @@
 					$columnas .= '<th>'.$column.'</th>';
 				}
 				
-				$columnas .= '<th class="no-sort"></th>';
+				$columnas .= '<th class="no-sort">Opciones</th>';
 			?>
 				<thead>
 					<tr>

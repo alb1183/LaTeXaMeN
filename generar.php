@@ -72,6 +72,10 @@
 						echo '	</ul> </td>';
 						echo '</tr>';
 					?>
+					<tr>
+						<td style="text-align: right;"></td>
+						<td><input type="checkbox" class="css-checkbox" id="criteria" name="criteria" value="1"><label for="criteria" name="criteria_lbl" class="css-label depressed"> Generar tabla de criterios</label></td>
+					</tr>
 					<tr id="form_ult">
 						<td style="text-align: right;"><i style="color: #999999; font-size: 11px; font-family: times new roman; margin-right: 5px;" id="infoajax"> </i></td>
 						<td><input onclick="save_form();" id="enviarform" type="button" value="Guardar" class="buttonstyle green"> <input onclick="Cookies.remove('problemas'); Cookies.remove('preambulo'); location.reload();" type="button" value="Vaciar" class="buttonstyle red"></td>
@@ -82,6 +86,12 @@
 						var titulo = $('#titulo').val();
 						var preambulo = "<?=$preambulo;?>";
 						var id = "<?=$id;?>"
+						var criteria;
+						if($("#criteria").is(":checked")) {
+							criteria = 1;
+						}else{
+							criteria = 0;
+						}
 						
 						var preguntas = [];
 						
@@ -94,7 +104,7 @@
 						var preguntas_f = preguntas.toString();
 						
 						$.ajax({
-							data:  { 'tipo' : 5, 'id' : id, 'titulo' : titulo, 'preambulo' : preambulo, 'problemas' : preguntas_f},
+							data:  { 'tipo' : 5, 'id' : id, 'titulo' : titulo, 'preambulo' : preambulo, 'problemas' : preguntas_f, 'criteria' : criteria},
 							url:   '<?=$web['url'];?>php/funciones-ajax.php',
 							type:  'post',
 							beforeSend: function () {
@@ -142,7 +152,7 @@
 			<?
 			}
 		} else {
-				echo "<center><h2> No se a seleccionado preambulo y/o problema.</h2></center>";
+				echo "<center><h2> No se ha seleccionado preambulo y/o problema.</h2></center>";
 		}
 		?>
 		</div>

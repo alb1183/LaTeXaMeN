@@ -31,6 +31,7 @@
 				"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 					$(nRow).attr('id', 'pream_' + aData[0]);
 				},
+				"order": [[ 0, "desc" ]],
 				"columnDefs": [ {
 					  "targets": 'no-sort',
 					  "orderable": false,
@@ -51,7 +52,7 @@
 			<center>
 				<h1 style="margin: 0;">
 					<!--<img src="<?=$web['url'];?>img/accordion_32.png">-->
-					Preambulos
+					Preambulos <a href="<?=$web['url']?>preambulo.php?id=0"><img src="<?=$web['url']?>img/add_16.png" style="margin-bottom: 0;" title="Añadir"></a>
 					<span class="arrow" style="margin-top: 12px; margin-right: 3px;"> </span>
 				</h1>
 			</center>

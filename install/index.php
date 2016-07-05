@@ -199,7 +199,7 @@
 						 echo "Correcto";
 						 $url = $_POST['url'];
 						 $conectar->query("UPDATE tex_config set url = '$url' WHERE (id = '1')");
-						 header("Location: ../index.php");
+						 header("Location: ../index.html");
 					} else 
 						 echo "Error";
 				

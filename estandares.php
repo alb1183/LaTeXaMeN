@@ -44,8 +44,7 @@
 		<div class="title select">
 			<center>
 				<h1 style="margin: 0;">
-					<!--<img src="<?=$web['url'];?>img/accordion_32.png">-->
-					Estandares
+					Estandares <a href="<?=$web['url']?>estandar.php?id=0"><img src="<?=$web['url']?>img/add_16.png" style="margin-bottom: 0;" title="Añadir"></a>
 					<span class="arrow" style="margin-top: 12px; margin-right: 3px;"> </span>
 				</h1>
 			</center>
@@ -74,8 +73,7 @@
 			 
 				<tbody>
 					<?
-					$estandares_db = $conectar->query("SELECT * FROM $tabla_estandares order by id Desc");
-
+					$estandares_db = $conectar->query("SELECT * FROM $tabla_estandares");
 					while($row_estandares=$estandares_db->fetch_array()) {
 						echo '<tr>';
 						echo '	<td>'.$row_estandares['id'].'</td>';
