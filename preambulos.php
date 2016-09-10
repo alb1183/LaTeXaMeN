@@ -30,6 +30,7 @@
 				},
 				"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 					$(nRow).attr('id', 'pream_' + aData[0]);
+					$(nRow).attr('onclick', 'preambulo_cambiar(' + aData[0] + ')');
 				},
 				"order": [[ 0, "desc" ]],
 				"columnDefs": [ {
@@ -45,6 +46,11 @@
 			
 			var select_pream = Cookies.get('preambulo');
 			$("#pream_" + select_pream).addClass('row_selected');
+			
+			
+			$( "#preambulos a" ).click(function(e) {
+				e.stopPropagation();
+			});
 		});
 	</script>
 	<div class="box">
@@ -58,7 +64,7 @@
 			</center>
 		</div>
 		<div class="bloque interior">
-			<table id="preambulos" class="display" cellspacing="0" width="100%">
+			<table id="preambulos" class="display selectable" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -85,7 +91,7 @@
 						echo '	<td>'.$row_preambulos['titulo'].'</td>';
 						echo '	<td>';
 						echo '		<a href="'.$web['url'].'preambulo.php?id='.$row_preambulos['id'].'"><img src="'.$web['url'].'img/page_edit_16.png" title="Editar"></a>';
-						echo '		<a href="javascript:void(0);" onclick="preambulo_cambiar('.$row_preambulos['id'].')";><img src="'.$web['url'].'img/book_next_16.png" title="Seleccionar"></a>';
+						//echo '		<a href="javascript:void(0);" onclick="preambulo_cambiar('.$row_preambulos['id'].')";><img src="'.$web['url'].'img/book_next_16.png" title="Seleccionar"></a>';
 						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(3,'.$row_preambulos['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
 						echo '	</td>';
 						echo '</tr>';

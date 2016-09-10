@@ -1,13 +1,16 @@
 <?php
-require_once(__DIR__ . '\config.php');
+require_once(__DIR__ . '/config.php');
 $conectar = new mysqli(DBSERVER, DBUSER, DBPASS, DBNAME, "3306");
 if ($conectar->connect_error) {
     die('Error en la conexión principal al servidor :' . $conectar->connect_error);
 }
 
-$curso = (int) $_COOKIE["curso"];
-$prefijotabla = "tex_";
+// Datos globales
+$OS = 'Windows'; // Sistema operativo ('Windows', 'UNIX')
+$directorio_files = $_SERVER['DOCUMENT_ROOT'] . '/latexamen/files/';
 
+//$curso = (int) $_COOKIE["curso"];
+$curso = (int) 1; // FIXME
 switch ($curso) {
 	case 1:
 		$prefijotabla_curso = "1_";
@@ -22,6 +25,8 @@ switch ($curso) {
 		$prefijotabla_curso = "1_";
 		break;
 }
+
+$prefijotabla = "tex_";
 
 $tabla_config = $prefijotabla."config";
 $tabla_problemas = $prefijotabla.$prefijotabla_curso."problemas";

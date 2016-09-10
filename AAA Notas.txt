@@ -1,1 +1,1 @@
-- Pendiente de hacer la opcion para duplicar un problema(o hacerlo a partir de otro).
+- Permitir imagenes en los problemas(posiblemente poner una opcion para subirlas o cambiar a un path que sea comun y se usa para ello).

@@ -55,7 +55,7 @@ require("funciones.php");
 			$latex_p = $_POST['latex'];
 			$latex = $conectar->real_escape_string($latex_p);
 			$data = $conectar->real_escape_string($_POST['data']);
-			$directorio = $_SERVER['DOCUMENT_ROOT'] . '/latexamen/files/problemas/';
+			$directorio = $directorio_files . 'problemas/';
 			
 			if($id != 0) {
 				$conectar->query("UPDATE $tabla_problemas set titulo = '$titulo', estandares = '$estandares', latex = '$latex', data = '$data', preview = '1'  WHERE (id = '$id')");
@@ -78,13 +78,16 @@ require("funciones.php");
 			// TODO: EL ImageMagick requiere el GhostScript(http://ghostscript.com/download/)
 			$salida = generar_pdf_img($id, $directorio, true);
 			
+			echo $salida;
+			exit();
+			
 			/*if(strlen(trim($salida))>415) { // TODO: FIXME: Metodo muy cutre, buscar otro -_-
 				$conectar->query("UPDATE $tabla_problemas set preview = '0'  WHERE (id = '$id')");
 				echo 2;
 				exit();
 			}*/
 			
-			$fichero_ruta = '../files/problemas/' . $id . '.log';
+			$fichero_ruta = $directorio . $id . '.log';
 			$leer_log_f = leer_log($fichero_ruta);
 			if($leer_log_f['error'] === true) {
 				file_put_contents($fichero_ruta, $leer_log_f['contenido']);
@@ -122,8 +125,10 @@ require("funciones.php");
 			$titulo = $conectar->real_escape_string($_POST['titulo']);
 			$preambulo = (int) $_POST['preambulo'];
 			$problemas = $conectar->real_escape_string($_POST['problemas']);
-			$directorio = $_SERVER['DOCUMENT_ROOT'] . '/latexamen/files/examenes/';
+			$directorio = $directorio_files . 'examenes/';
 			$criteria = (int) $_POST['criteria'];
+			$generate = (int) $_POST['generate'];
+			$latex_p = $_POST['latex'];
 			$fecha = time();
 			
 			if($id != 0) {
@@ -141,84 +146,105 @@ require("funciones.php");
 			$row_preambulo=$preambulo_db->fetch_array();
 			
 			// Creando el .tex
-			// Cabecera
-			$content = $row_preambulo['head'].PHP_EOL;
-			
-			// Añado los problemas
-			$problemas_db = $conectar->query("SELECT * FROM $tabla_problemas WHERE id IN ($problemas) ORDER BY FIELD(id, $problemas)");
-			$problemas_estandares = array();
-			$problemas_num = 0;
-			while($row_problemas=$problemas_db->fetch_array()) {
-				$content .= $row_problemas['latex'].PHP_EOL;
+			if($generate == 1) {
+				// Cabecera
+				$content = $row_preambulo['head'].PHP_EOL;
 				
-				$problemas_estandares[] = $row_problemas['estandares'];
-				$problemas_num++;
-			}
-			
-			// Generar tabla de estandares
-			if($criteria == 1) {
-				$tabla = '\hrule'.PHP_EOL;
-				$tabla .= '\begin{table}[h]'.PHP_EOL;
-				$tabla .= '\begin{center}'.PHP_EOL;
-				$tabla .= '\begin{tabular}{|p{3.2cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|}'.PHP_EOL;
-				$tabla .= '\hline'.PHP_EOL;
-				$tabla .= '{\scriptsize Estándar de aprendizaje}'.PHP_EOL;
-				
-				for($i = 0; $i < $problemas_num; $i++) {
-					$estandars = str_replace(' ', ' \\\\ ', $problemas_estandares[$i]);
-					str_replace(' ', ' \\\\ ', $estandars);
-					$tabla .= '& \centering {\scriptsize '.$estandars.'\\\\ }'.PHP_EOL;
+				// Añado los problemas
+				$problemas_db = $conectar->query("SELECT * FROM $tabla_problemas WHERE id IN ($problemas) ORDER BY FIELD(id, $problemas)");
+				$problemas_estandares = array();
+				$problemas_num = 0;
+				while($row_problemas=$problemas_db->fetch_array()) {
+					$content .= $row_problemas['latex'].PHP_EOL;
+					
+					$problemas_estandares[] = $row_problemas['estandares'];
+					$problemas_num++;
 				}
 				
-				$tabla .= '\tabularnewline \hline {\scriptsize Preguntas o apartados \par con que se relaciona}'.PHP_EOL;
-				
-				for($i = 0; $i < $problemas_num; $i++) {
-					$tabla .= ' &  \centering {\scriptsize '.($i+1).' }'.PHP_EOL;
-				}
-				
-				$tabla .= ' \tabularnewline \hline'.PHP_EOL;
-				$tabla .= ' {\scriptsize Puntuación máx. estándar}'.PHP_EOL;
-				
-				for($i = 0; $i < $problemas_num; $i++) {
-					$estandars = explode(' ', $problemas_estandares[$i]);
-					$longitud = count($estandars);
+				// Generar tabla de estandares
+				if($criteria == 1) {
+					$tabla = '\hrule'.PHP_EOL;
+					$tabla .= '\begin{table}[h]'.PHP_EOL;
+					$tabla .= '\begin{center}'.PHP_EOL;
+					$tabla .= '\begin{tabular}{|p{3.2cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|p{1.3cm}|}'.PHP_EOL;
+					/*$tabla .= '\begin{tabular}{|p{3.2cm}|p{1.3cm}';
+					for($i = 0; $i < $problemas_num; $i++) {
+						$tabla .= 'p{1.3cm}|';
+					}*/
+					//$tabla .= '|}'.PHP_EOL;
+					$tabla .= '\hline'.PHP_EOL;
+					$tabla .= '{\scriptsize Estándar de aprendizaje}'.PHP_EOL;
 					
-					$tabla .= '  &  \centering {\scriptsize ';
-					
-					for($j=0; $j<$longitud; $j++) {
-						$estd = trim($estandars[$j]);
-						$estands_db = $conectar->query("select * from $tabla_estandares WHERE estandar='$estd'");
-						$row_estands=$estands_db->fetch_array();
-						$tabla .= $row_estands['puntuacion'].'\\\\';
+					for($i = 0; $i < $problemas_num; $i++) {
+						$estandars = str_replace(' ', ' \\\\ ', $problemas_estandares[$i]);
+						str_replace(' ', ' \\\\ ', $estandars);
+						if($estandars != '-1')
+							$tabla .= '& \centering {\scriptsize '.$estandars.'\\\\ }'.PHP_EOL;
+						else
+							$tabla .= '& \centering {\scriptsize Ninguno }'.PHP_EOL;
 					}
-					$tabla .= ' } '.PHP_EOL;
-				}
+					
+					$tabla .= '\tabularnewline \hline {\scriptsize Preguntas o apartados \par con que se relaciona}'.PHP_EOL;
+					
+					for($i = 0; $i < $problemas_num; $i++) {
+						$tabla .= ' &  \centering {\scriptsize '.($i+1).' }'.PHP_EOL;
+					}
+					
+					$tabla .= ' \tabularnewline \hline'.PHP_EOL;
+					$tabla .= ' {\scriptsize Puntuación máx. estándar}'.PHP_EOL;
+					
+					for($i = 0; $i < $problemas_num; $i++) {
+						$estandars = explode(' ', $problemas_estandares[$i]);
+						$longitud = count($estandars);
+						
+						$tabla .= '  &  \centering {\scriptsize ';
+						
+						for($j=0; $j<$longitud; $j++) {
+							$estd = trim($estandars[$j]);
+							if($estd != '-1') {
+								$estands_db = $conectar->query("select * from $tabla_estandares WHERE estandar='$estd'");
+								$row_estands=$estands_db->fetch_array();
+								$tabla .= $row_estands['puntuacion'].'\\\\';
+							}
+						}
+						$tabla .= ' } '.PHP_EOL;
+					}
+					
+					$tabla .= '\tabularnewline \hline'.PHP_EOL;
+					$tabla .= ' {\scriptsize Puntuación obtenida } '.PHP_EOL;
+					$tabla .= ' &  \vspace*{1cm} \centering \vspace*{1.5cm} '.PHP_EOL;
+					//$tabla .= ' &  \centering  '.PHP_EOL;
+					//$tabla .= ' & \centering  '.PHP_EOL;
+					for($i = 0; $i < $problemas_num-2; $i++) { // TODO: Revisar
+						$tabla .= ' &  \centering '.PHP_EOL;
+					}
+					$tabla .= ' &  \tabularnewline '.PHP_EOL;
+					$tabla .= '\hline '.PHP_EOL;
+					$tabla .= '\end{tabular}'.PHP_EOL;
+					$tabla .= '\end{center}'.PHP_EOL;
+					$tabla .= '\end{table}'.PHP_EOL;
+					$tabla .= '\hrule'.PHP_EOL;
+					
+					$content .= $tabla.PHP_EOL;
+				}			
 				
- 				$tabla .= '\tabularnewline \hline'.PHP_EOL;
-				$tabla .= ' {\scriptsize Puntuación obtenida } '.PHP_EOL;
-				$tabla .= ' &  \vspace*{1cm} \centering    \vspace*{1.5cm} '.PHP_EOL;
-				$tabla .= ' &  \centering  '.PHP_EOL;
-				$tabla .= ' & \centering  '.PHP_EOL;
-				$tabla .= ' &  \tabularnewline '.PHP_EOL;
-				$tabla .= '\hline '.PHP_EOL;
-				$tabla .= '\end{tabular}'.PHP_EOL;
-				$tabla .= '\end{center}'.PHP_EOL;
-				$tabla .= '\end{table}'.PHP_EOL;
-				$tabla .= '\hrule'.PHP_EOL;
 				
-				$content .= $tabla.PHP_EOL;
-			}			
-			
-			
-			// Footer
-			$content .= $row_preambulo['foot'];
-			// Creo el .tex
-			crear_tex($directorio.$id .'.tex', $content);
+				// Footer
+				$content .= $row_preambulo['foot'];
+				// Creo el .tex
+				crear_tex($directorio.$id .'.tex', $content);
+			}else{
+				// Creo el .tex
+				crear_tex($directorio.$id .'.tex', $latex_p);
+			}
 			
 			// Genero el .pdf
 			$salida = generar_pdf_img($id, $directorio, false);
 			
-			$fichero_ruta = '../files/examenes/' . $id . '.log';
+			//echo $salida;
+			//exit();
+			
+			$fichero_ruta = $directorio . $id . '.log';
 			$leer_log_f = leer_log($fichero_ruta);
 			if($leer_log_f['error'] === true) {
 				file_put_contents($fichero_ruta, $leer_log_f['contenido']);
@@ -283,19 +309,39 @@ require("funciones.php");
 		}
 		// Borrar examen/problema/preambulo/estandar - End
 		// ****************************************** //
-		//  - Start
+		// Subir imagen - Start
 		if($tipo == 9) {
-			
+			$uploaddir = $directorio_files . 'examenes/';
+			$extension = strtolower(strrchr($_FILES['upload_file']["name"], '.'));
+			$random = substr(md5(uniqid(rand())),0,3);
+			$error = $_FILES['archivo']['error'];
+			$subido = false;
+			if($extension == ".jpg" || $extension == ".jpeg" || $extension == ".png"){
+				$uploadfile = $uploaddir.basename($id."-".$random.strtolower(strrchr($_FILES['upload_file']["name"], '.')));
+				$archivo = $id."-".$random.strtolower(strrchr($_FILES['upload_file']["name"], '.'));
+				if($error==UPLOAD_ERR_OK) { 
+					$subido = move_uploaded_file($_FILES['upload_file']['tmp_name'], $uploadfile); 
+				} 
+				if($subido) {
+					echo 1;
+				} else {
+					echo "Se ha producido un error: '".$error."'.";
+				}
+			}else{
+					echo "Se ha producido un error: Extensión no válida.";
+			}
 		exit();
 		}
-		//  - End
+		// Subir imagen - End
 		// ****************************************** //
-		//  - Start
+		// Borrar imagen - Start
 		if($tipo == 10) {
-			
+			$fichero = $directorio_files . 'examenes/' . $_POST['file'];
+			unlink($fichero);			
+			echo 1;
 		exit();
 		}
-		//  - End
+		// Borrar imagen - End
 		// ****************************************** //
 
 ?> 

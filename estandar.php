@@ -63,7 +63,7 @@
 					</tr>
 					<tr>
 						<td style="text-align: right; width: 250px;"><label class="add-on left">Descripcion: </label></td>
-						<td><input style="width: 350px;" type="text" name="descripcion" id="descripcion" class="right" value="<?=$row_estandar['descripcion'];?>"></td>
+						<td><textarea style="width: 350px; resize: vertical; height: 100px;" type="text" name="descripcion" id="descripcion" class="right" value=""><?=$row_estandar['descripcion'];?></textarea></td>
 					</tr>
 					<tr>
 						<td style="text-align: right; width: 250px;"><label class="add-on left">Puntuacion: </label></td>

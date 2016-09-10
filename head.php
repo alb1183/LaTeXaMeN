@@ -111,6 +111,11 @@
 							<img src="<?=$web['url'];?>img/document_todo_16.png"> Estandares
 						</a>
 					</li>
+					<li style="width: 105px;">
+						<a href="<?=$web['url'];?>imagenes.php" title="Estandares">
+							<img src="<?=$web['url'];?>img/images_16.png"> Imagenes
+						</a>
+					</li>
 					<li style="width: 165px;">
 						<a href="<?=$web['url'];?>configuraciones.php" title="Configuraciones">
 							<img src="<?=$web['url'];?>img/database_16.png"> Configuraciones

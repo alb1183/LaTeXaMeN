@@ -2,17 +2,17 @@
 	require("head.php")
 ?>
 	<script>
-		window.document.title = "<?=$web['nombre'];?> - Preambulos";
+		window.document.title = "<?=$web['nombre'];?> - Estandares";
 		$(document).ready(function() {
-			$('#preambulos').dataTable({
+			$('#estandares').dataTable({
 				"language": {
 					"emptyTable":     "No data available in table",
-					"info":           "Mostrando del _START_ al _END_ de _TOTAL_ preambulos",
-					"infoEmpty":      "Mostrando del 0 al 0 de 0 preambulos",
+					"info":           "Mostrando del _START_ al _END_ de _TOTAL_ estandares",
+					"infoEmpty":      "Mostrando del 0 al 0 de 0 estandares",
 					"infoFiltered":   "(filtered from _MAX_ total entries)",
 					"infoPostFix":    "",
 					"thousands":      ",",
-					"lengthMenu":     "Mostrar _MENU_ preambulos",
+					"lengthMenu":     "Mostrar _MENU_ estandares",
 					"loadingRecords": "Cargando...",
 					"processing":     "Procesando...",
 					"search":         "Buscar:",
@@ -50,7 +50,7 @@
 			</center>
 		</div>
 		<div class="bloque interior">
-			<table id="preambulos" class="display" cellspacing="0" width="100%">
+			<table id="estandares" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th>ID</th>

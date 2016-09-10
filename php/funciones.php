@@ -81,12 +81,29 @@
 		// Genero la img - TODO: el comando convert es del ImageMagick(http://www.imagemagick.org/script/index.php)
 		// TODO: EL ImageMagick requiere el GhostScript(http://ghostscript.com/download/)
 		//$orden = 'pdflatex -output-directory="'.$directorio.'" --interaction batchmode --enable-installer -quiet "'.$directorio.$id .'.tex"';
-		$orden = 'cd "'.$directorio.'" && pdflatex --interaction batchmode --enable-installer -quiet "'.$id .'.tex"';
+		$separador = '&&'; // Windows
+		if($OS == 'UNIX') // FIXME
+			$separador = ';'; // Linux/Mac
+			
+		$comando = '"C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex" --interaction batchmode --enable-installer -quiet'; // Windows
+		if($OS == 'UNIX') // FIXME
+			$comando = '/usr/local/texlive/2016basic/bin/universal-darwin/pdflatex --interaction=batchmode'; // Linux/Mac
+		
+		//$orden = 'cd "'.$directorio.'" '.$separador.' '.$comando.' "'.$id .'.tex"';  // Windows
+		$orden = 'cd "'.$directorio.'" '.$separador.' '.$comando.' "'.$directorio.''.$id .'.tex"';
+		
+		//return $orden;
+		//exit();
 		
 		$salida = shell_exec($orden);
 		if($img == true) {
-			$orden_img = 'cd "'.$directorio.'" && convert -verbose -density 150 -trim "'.$id .'.pdf" -quality 100 -gravity center -background white -extent 1275x1650 "'.$id .'.jpg"';
+			
+			$comando_img = 'magick'; // Windows
+			if($OS == 'UNIX') // FIXME
+				$comando_img = 'convert'; // Linux/Mac
+			$orden_img = 'cd "'.$directorio.'" '.$separador.' '.$comando_img.' -verbose -density 150 -trim "'.$id .'.pdf" -quality 100 -gravity center -background white -extent 1275x1650 "'.$id .'.jpg"';
 			shell_exec($orden_img);
+			return $orden_img;
 		}
 		
 		return $salida;

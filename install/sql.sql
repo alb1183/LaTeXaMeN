@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.6.14-log : Database - latexamen
+MySQL - 5.7.14-log : Database - latexamen
 *********************************************************************
 */
 
@@ -24,11 +24,11 @@ CREATE TABLE `tex_1_exams` (
   `fecha` int(255) NOT NULL,
   `generado` int(50) NOT NULL DEFAULT '0',
   KEY `id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tex_1_exams` */
 
-insert  into `tex_1_exams`(`id`,`titulo`,`problemas`,`preambulo`,`fecha`,`generado`) values (1,'Holaa','9,8',2,1439911362,1),(2,'testt2','2,1',1,1439911491,1),(3,'Prueba3','1,5,6',1,1439916133,0),(4,'Prueba','10,11,12,13',3,1467644949,1);
+insert  into `tex_1_exams`(`id`,`titulo`,`problemas`,`preambulo`,`fecha`,`generado`) values (1,'Holaa','9,8',2,1439911362,1),(2,'testt2','2,1',1,1439911491,1),(3,'Prueba3','1,5,6',1,1439916133,0),(4,'Prueba','10,11,12,13',3,1467644949,1),(5,'Prueba6','11,8,12',3,1467718393,1);
 
 /*Table structure for table `tex_1_pre` */
 
@@ -58,7 +58,7 @@ CREATE TABLE `tex_1_problemas` (
   `latex` text NOT NULL,
   `preview` varchar(254) NOT NULL DEFAULT '0',
   KEY `id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tex_1_problemas` */
 
@@ -74,7 +74,7 @@ CREATE TABLE `tex_1_standards` (
   `descripcion` text NOT NULL,
   `puntuacion` int(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tex_1_standards` */
 
@@ -97,7 +97,7 @@ CREATE TABLE `tex_config` (
 
 /*Data for the table `tex_config` */
 
-insert  into `tex_config`(`id`,`url`,`nombre`,`version`,`jpeg_quality`,`head`,`foot`) values (1,'http://servermurcia.com/latexamen/','LaTeXaMeN','0.8','95','\\documentclass[10pt]{article}\n\\usepackage{amsmath}\n\\usepackage[forpaper,pointsonboth,nototals,\nnosolutions,allowrandomize\n]{eqexam}\n\n\n\n\\usepackage{chemformula}\n\\usepackage[version=3]{mhchem}\n\\usepackage{varwidth}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage[version=3]{mhchem}\n\\usepackage{booktabs}\n\\usepackage{paralist}\n\\usepackage{framed}\n\\usepackage{setspace}\n\\usepackage[spanish]{babel} \n\\usepackage[left=2.85cm,top=2.5cm,right=2.85cm,bottom=1.25cm]{geometry}\n\\usepackage{tikz}\n\\usepackage{pgfplots}\n\n\\spanishdecimal{,}\n%\\usepackage{times}\n%\\usepackage{newcent}\n%\\usepackage{palatino}\n%\\usepackage{bookman}\n\n\\pointLabel{punto}\n\\pointsLabel{puntos}\n\\ptLabel{pt.}            % singular form\n\\ptsLabel{{pts.}}\n\\eachLabel{\\tiny{apdo.}}\n\\renewcommand\\itemPTsTxt[1]{{\\footnotesize $#1$ pts}}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{document}\n\n\\vspace*{-2.7cm}\n\\noindent\\rule{1.05\\textwidth}{0,4pt}\n%Tipo examen y curso, Evaluacion\n\\noindent\\makebox[1.05\\linewidth]{{\\bf{\\small {Control-1 / 3º de ESO S}}}\\hfill {\\bf{\\small{Segunda Evaluación}}}} \n\\vspace{-0,35cm}\n\\noindent\\makebox[1.05\\linewidth]{{\\bf{\\scriptsize{Diversidad de la materia\\ldots}}}\\hfill\\ {\\bf{\\scriptsize 17 de Junio de 2015}}}\\vspace{0,65cm}\n\\noindent \\makebox[1.05\\linewidth]{Nombre\\dotfill}\\vspace{-0,25cm}\n\\noindent\\rule{1.05\\textwidth}{0,4pt}\n\\vspace*{-1.5cm}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\makeatletter\n% \\eqemargin is the minimum distance to the left margin, plus \\marginparsep.\n% I\'ve removed \\marginparsep to get the minimal positioning. You can insert\n% additional spacing, such as 3pt+\\eqemargin\n\\renewcommand{\\eqleftmargin}[2]{\\makebox[0pt][r]{\\marginpointtext{#1}{#2}%\n    \\setlength{\\@tempdima}{\\eqemargin}%\n%    \\setlength{\\@tempdima}{\\marginparsep+\\eqemargin}%\n    \\hspace*{\\@tempdima}}}\n% important to execute this after the redefinition\n%\\PointsOnLeft\n\\makeatother\n\\lhead{}\n\\chead{}\n\\rhead{}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{exam}{Part1}\n\\forceNoColor\n%\\useFillerLines\n\\useFillerDefault\n%\\fillTypeHRule\n%\\fillTypeDefault\n%\\fillTypeDashLine\n\\fillTypeDots\n\\eqWriteLineColor{blue}\n\\eqWLSpacing{18pt}\n\\vspace*{1cm}','\\vfill\n\\hrule\n\\vspace*{0.2cm}\n\\noindent{\\footnotesize\\emph{{La puntuación total del examen es de \\summaryPointTotal\\ puntos.}}}\n\\end{exam} \n\\end{document}\n\n');
+insert  into `tex_config`(`id`,`url`,`nombre`,`version`,`jpeg_quality`,`head`,`foot`) values (1,'http://servermurcia.com/latexamen/','LaTeXaMeN','0.9','95','\\documentclass[10pt]{article}\n\\usepackage{amsmath}\n\\usepackage[forpaper,pointsonboth,nototals,\nnosolutions,allowrandomize\n]{eqexam}\n\n\n\n\\usepackage{chemformula}\n\\usepackage[version=3]{mhchem}\n\\usepackage{varwidth}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage[version=3]{mhchem}\n\\usepackage{booktabs}\n\\usepackage{paralist}\n\\usepackage{framed}\n\\usepackage{setspace}\n\\usepackage[spanish]{babel} \n\\usepackage[left=2.85cm,top=2.5cm,right=2.85cm,bottom=1.25cm]{geometry}\n\\usepackage{tikz}\n\\usepackage{pgfplots}\n\n\\spanishdecimal{,}\n%\\usepackage{times}\n%\\usepackage{newcent}\n%\\usepackage{palatino}\n%\\usepackage{bookman}\n\n\\pointLabel{punto}\n\\pointsLabel{puntos}\n\\ptLabel{pt.}            % singular form\n\\ptsLabel{{pts.}}\n\\eachLabel{\\tiny{apdo.}}\n\\renewcommand\\itemPTsTxt[1]{{\\footnotesize $#1$ pts}}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{document}\n\n\\vspace*{-2.7cm}\n\\noindent\\rule{1.05\\textwidth}{0,4pt}\n%Tipo examen y curso, Evaluacion\n\\noindent\\makebox[1.05\\linewidth]{{\\bf{\\small {Control-1 / 3º de ESO S}}}\\hfill {\\bf{\\small{Segunda Evaluación}}}} \n\\vspace{-0,35cm}\n\\noindent\\makebox[1.05\\linewidth]{{\\bf{\\scriptsize{Diversidad de la materia\\ldots}}}\\hfill\\ {\\bf{\\scriptsize 17 de Junio de 2015}}}\\vspace{0,65cm}\n\\noindent \\makebox[1.05\\linewidth]{Nombre\\dotfill}\\vspace{-0,25cm}\n\\noindent\\rule{1.05\\textwidth}{0,4pt}\n\\vspace*{-1.5cm}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\makeatletter\n% \\eqemargin is the minimum distance to the left margin, plus \\marginparsep.\n% I\'ve removed \\marginparsep to get the minimal positioning. You can insert\n% additional spacing, such as 3pt+\\eqemargin\n\\renewcommand{\\eqleftmargin}[2]{\\makebox[0pt][r]{\\marginpointtext{#1}{#2}%\n    \\setlength{\\@tempdima}{\\eqemargin}%\n%    \\setlength{\\@tempdima}{\\marginparsep+\\eqemargin}%\n    \\hspace*{\\@tempdima}}}\n% important to execute this after the redefinition\n%\\PointsOnLeft\n\\makeatother\n\\lhead{}\n\\chead{}\n\\rhead{}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{exam}{Part1}\n\\forceNoColor\n%\\useFillerLines\n\\useFillerDefault\n%\\fillTypeHRule\n%\\fillTypeDefault\n%\\fillTypeDashLine\n\\fillTypeDots\n\\eqWriteLineColor{blue}\n\\eqWLSpacing{18pt}\n\\vspace*{1cm}','\\vfill\n\\hrule\n\\vspace*{0.2cm}\n\\noindent{\\footnotesize\\emph{{La puntuación total del examen es de \\summaryPointTotal\\ puntos.}}}\n\\end{exam} \n\\end{document}\n\n');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

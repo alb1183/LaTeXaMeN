@@ -30,6 +30,7 @@
 				},
 				"fnCreatedRow": function( nRow, aData, iDataIndex ) {
 					$(nRow).attr('id', 'problem_' + aData[0]);
+					$(nRow).attr('onclick', 'problemas_add(' + aData[0] + ')');
 				},
 				"order": [[ 0, "desc" ]],
 				"columnDefs": [ {
@@ -70,9 +71,14 @@
 			var problems = problemas.split(',')
 			for (var i in problems) {
 				$("#problem_" + problems[i]).addClass('row_selected');
-				$("#problemas_add_" + problems[i]).hide();
-				$("#problemas_remove_" + problems[i]).show();
+				$("#problem_" + problems[i]).attr('onclick', 'problemas_remove(' + problems[i] + ')');
+				//$("#problemas_add_" + problems[i]).hide();
+				//$("#problemas_remove_" + problems[i]).show();
 			}
+			
+			$( "#problemas a" ).click(function(e) {
+				e.stopPropagation();
+			});
 		});
 	</script>
 	<div class="box">
@@ -85,7 +91,7 @@
 			</center>
 		</div>
 		<div class="bloque interior">
-			<table id="problemas" class="display" cellspacing="0" width="100%">
+			<table id="problemas" class="display selectable" cellspacing="0" width="100%">
 			<?
 				
 				$columnas = '<th>ID</th>
@@ -151,9 +157,7 @@
 								echo '<a rel="gallery'.$row_problemas['id'].'" class="prob_prev" href="'.$web['url'].'files/problemas/'.$row_problemas['id'].'-0.jpg"><img src="'.$web['url'].'img/document_image_16.png" title="Preview"></a> ';
 								echo '<div style="display: none;">';
 								$cont = 1;
-								while(TRUE) { // TODO: Esto es para cuando tiene varias paginas, bucle infinito que para cuando ya no hay mas paginas.
-									if(!file_exists('./files/problemas/'.$row_problemas['id'].'-'.$cont.'.jpg'))
-										break;
+								while(file_exists('./files/problemas/'.$row_problemas['id'].'-'.$cont.'.jpg')) { // TODO: Esto es para cuando tiene varias paginas, bucle que para cuando ya no hay mas paginas.
 									echo '<a rel="gallery'.$row_problemas['id'].'" class="prob_prev" href="'.$web['url'].'files/problemas/'.$row_problemas['id'].'-'.$cont.'.jpg"></a> ';
 									$cont++;
 								}
@@ -162,8 +166,8 @@
 						} else {
 							echo '	<a href="javascript:void(0);" onclick="alert(\'No se ha generado preview, edita el problema para crearla.\')"><img src="'.$web['url'].'img/document_image_16.png" title="Preview"></a> ';
 						}
-						echo '		<a id="problemas_add_'.$row_problemas['id'].'" href="javascript:void(0);" onclick="problemas_add('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_next_16.png" title="Añadir"></a>';
-						echo '		<a id="problemas_remove_'.$row_problemas['id'].'" style="display: none;" href="javascript:void(0);" onclick="problemas_remove('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_previous_16.png" title="Quitar"></a>';
+						//echo '		<a id="problemas_add_'.$row_problemas['id'].'" href="javascript:void(0);" onclick="problemas_add('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_next_16.png" title="Añadir"></a>';
+						//echo '		<a id="problemas_remove_'.$row_problemas['id'].'" style="display: none;" href="javascript:void(0);" onclick="problemas_remove('.$row_problemas['id'].');";><img src="'.$web['url'].'img/book_previous_16.png" title="Quitar"></a>';
 						echo '	<a href="javascript:void(0);" onclick="borrar_selectivo(2,'.$row_problemas['id'].')"><img src="'.$web['url'].'img/cross_16.png" title="Borrar"></a>';
 						echo '	</td>';
 						

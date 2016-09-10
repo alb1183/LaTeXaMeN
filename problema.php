@@ -45,7 +45,8 @@
 				$(that).closest('tr').remove();
 			}
 		}
-		function save_form() {
+		
+		function save_form(id) {
 			var parametros = {};
 			$( ".formulario" ).each(function( index ) {
 				var name = $(this).attr('name');
@@ -63,7 +64,7 @@
 			var latex = editor_latex.getValue();
 			
 			$.ajax({
-				data:  { 'tipo' : 3, 'id' : <?=$id;?> , 'titulo' : titulo, 'estandares' : estandares, 'latex' : latex , 'data' : json_send},
+				data:  { 'tipo' : 3, 'id' : id , 'titulo' : titulo, 'estandares' : estandares, 'latex' : latex , 'data' : json_send},
 				url:   '<?=$web['url'];?>php/funciones-ajax.php',
 				type:  'post',
 				beforeSend: function () {
@@ -72,6 +73,8 @@
 				success:  function (response) {
 						if(response == 1){
 							$("#infoajax").html("Guardado correctamente");
+							if(id == 0) 
+								window.location = '<?=$web['url'];?>problemas.php'
 						}else{
 							//$("#infoajax").html("Error: " + response);
 							alert("Error: " + response);
@@ -117,7 +120,7 @@
 					?>
 					<tr id="form_ult">
 						<td style="text-align: right;"><i style="color: #999999; font-size: 11px; font-family: times new roman; margin-right: 5px;" id="infoajax"> </i></td>
-						<td><input onclick="save_form();" id="enviarform" type="button" value="Guardar" class="buttonstyle green"></td>
+						<td><input onclick="save_form(<?=$id;?>);" id="enviarform" type="button" value="Guardar" class="buttonstyle green"> <input type="button" onclick="save_form(0);" value="Nuevo" class="buttonstyle orange"> <? if($id != 0) echo '<input type="button" class="buttonstyle red" value="Borrar" onclick="borrar_selectivo(2,'.$id.')">'; ?></td>
 					</tr>
 				</table>
 			</center>
